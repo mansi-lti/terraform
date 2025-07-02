@@ -1,15 +1,15 @@
 -------creating instance with security group---------------
 provider "aws" {
   region     = "us-east-1"
-  access_key = "access key"
-  secret_key = "secret-keys"
+  access_key = "Access-key"
+  secret_key = "secret-key"
 }
 resource "aws_instance" "Instance" {
   ami               = "ami-05ffe3c48a9991133"
   instance_type     = "t2.micro"
   key_name          = "lti-mahape-key"
   availability_zone = "us-east-1a"
-  vpc_security_group_ids = [aws_security_group.web-server.id]
+  security_groups   = ["${aws_security_group.web-server.name}"]
 
   tags = {
     Name = "mansi-server"
@@ -30,4 +30,4 @@ resource "aws_vpc_security_group_ingress_rule" "allow_http" {
   from_port   = 80
   ip_protocol = "tcp"
   to_port     = 80
-}              
+}            
