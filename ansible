@@ -179,6 +179,23 @@ localhost
   #cd
   #cd /etc/ansible
   #vim ec2.yaml
+---
+- hosts:  localhost
+  vars_files:
+    - my_cred.yaml
+  tasks:
+    - name: creating Ec2 instance via Ansible
+      amazon.aws.ec2_instance:
+        aws_access_key: access_key
+        aws_secret_key: secret_key
+        name: K8s-Master
+        instance_type: t2.medium
+        image_id: ami-0a7d80731ae1b2435
+        vpc_subnet_id: subnet-0252c2e12558d5909
+        key_name: key
+        region: us-east-1
+        count: 1
+        state: present
 #pip install botocore
 #vim hosts
 [localhost]
