@@ -19,6 +19,8 @@ create iam role and attach policy
  SSh-keygen
  Create EKS Cluster
  eksctl create cluster --name my-cluster --region region-code --version 1.32 --vpc-public-subnets subnet-ExampleID1,subnet-ExampleID2 --without-nodegroup
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -create node group
 eksctl create nodegroup \
@@ -90,3 +92,5 @@ spec:
       targetPort: 80
    30  kubectl apply -f service.yaml
    31  kubectl get svc -> copy the external ip with port 80 in the browser.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+to delete cluster :- eksctl delete cluster --name my-cluster
