@@ -1,0 +1,10 @@
+---creating file storage in azure and accessing from aws---------
+https://dev-test800.s3.us-east-1.amazonaws.com/samle+code.txt
+paste the above code in sample.sh file
+ #yum install cifs-utils -y
+ #yum update -y
+ #chmod +x sample.sh
+ #./sample.sh
+ #df -h [check wheather mounted or not]
+Create new file 
+touch mansi.txt{1..10}
