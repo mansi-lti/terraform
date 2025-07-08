@@ -168,6 +168,7 @@ create an instance
 #vim hosts
 [localhost]
 localhost
+localhost ansible_connection=local ansible_python_interpreter=/usr/bin/python3 
 #ssh-keygen
 #aws configure
  #passwd root
@@ -197,10 +198,6 @@ localhost
         count: 1
         state: present
 #pip install botocore
-#vim hosts
-[localhost]
-localhost
-localhost ansible_connection=local ansible_python_interpreter=/usr/bin/python3 
 
 #ansible-playbook ec2.yaml --syntax-check
 #ansible-playbook ec2.yaml -C
