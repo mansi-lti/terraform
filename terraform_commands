@@ -1,3 +1,8 @@
+Installing terraform steps 
+  sudo yum install -y yum-utils
+  sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+  sudo yum -y install terraform
+aws configure
 -------creating instance with security group---------------
 provider "aws" {
   region     = "us-east-1"
@@ -516,6 +521,20 @@ resource "aws_instance" "test" {
     Name = "${var.env_tag}"
   }
 }
+---------Creating ami from existing instance------------
+###Create AWS AMI from AWS INStance
+resource "aws_ami_from_instance" "my-images" {
+  name               = "terra-image"
+  source_instance_id = "i-0660b0a25473b00f5"
+
+  tags = {
+    Name = "Hello-world"
+  }
+}
+terraform init
+terraform fmt
+terraform plan
+terraform apply
 
                         
                                 
