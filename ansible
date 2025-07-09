@@ -243,6 +243,38 @@ systemctl status httpd
 cd /tmp
 ll  -> fstab should be visible 
 
+------------------------multiple users-------------------
+---
+- name: adding multiple users
+  hosts: all
+  tasks:
+    - name: create multiple users
+      user:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - mansi
+        - sachin
+        - uday
+        - deepak
+        - hyman
+
+---------------multiple copy file-------------------------
+---
+- name: copied files
+  hosts: all
+  tasks:
+    - name: copied multiple files
+      copy:
+        src: "{{ item }}"
+        dest: /tmp
+      loop:
+        - /etc/passwd
+        - /etc/fstab
+        - /etc/gshadow
+        - /etc/mtab
+        - /etc/group
+
 
 
 
