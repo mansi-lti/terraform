@@ -3,6 +3,44 @@ Installing terraform steps
   sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
   sudo yum -y install terraform
 aws configure
+----creating instance in us-east-1a region with security group enabling 443 and 80 ports---------
+resource "aws_security_group" "web_access" {
+  name        = "web_access"
+  description = "Allow traffic"
+
+  tags = {
+    Name = "web_access"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "allow_http" {
+  security_group_id = aws_security_group.web_access.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 80
+  ip_protocol       = "tcp"
+  to_port           = 80
+}
+
+resource "aws_vpc_security_group_ingress_rule" "allow_https" {
+  security_group_id = aws_security_group.web_access.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 443
+  ip_protocol       = "tcp"
+  to_port           = 443
+}
+
+#ec2 instance code starts here
+resource "aws_instance" "custom-server" {
+  ami               = "ami-05ffe3c48a9991133"
+  availability_zone = "us-east-1a"
+  instance_type     = "t2.micro"
+  security_groups   = ["${aws_security_group.web_access.name}"]
+  key_name          = "lti-mahape-key"
+ tags = {
+    Name = "custom-server"
+  }
+}
+
 -------creating instance with security group---------------
 provider "aws" {
   region     = "us-east-1"
