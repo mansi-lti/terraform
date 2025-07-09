@@ -203,6 +203,47 @@ localhost ansible_connection=local ansible_python_interpreter=/usr/bin/python3
 #ansible-playbook ec2.yaml -C
 #ansible-playbook ec2.yaml 
 
----------------------eks cluster provisionin------------------------------------------
+---------------------isntalling httpd and copying the fstab file in /tmp--------------------------------------
+create 3 instance and setup connection between controller and target machines by making the entry in vim /etc/hosts file
+generate ssh key and paste in authorized keys in the target machine 
+    #yum install ansible -y
+    #cd /etc/ansible
+    #vim hosts
+[dev-servers]
+ansible-target
+   #cd /etc
+   #cp fstab /etc/ansible
+   #vim httpd.yaml
+---
+- name: installing httpd and copying fstab file in tmp
+  hosts: ansible-target
+  tasks:
+
+    - name: installed httpd
+      dnf:
+        name: httpd
+        state: latest
+
+    - name: copied fstab file
+      copy:
+        src: fstab
+        dest: /tmp
+
+    - name: started httpd
+      systemd:
+        name: httpd
+        state: started
+        enabled: true
+ #ansible-playbook httpd.yaml --syntax-check
+ #ansible-playbook httpd.yaml -C
+ #ansible-playbook httpd.yaml
+check in the target machine 
+rpmquery httpd
+systemctl status httpd
+cd /tmp
+ll  -> fstab should be visible 
+
+
+
 
 
