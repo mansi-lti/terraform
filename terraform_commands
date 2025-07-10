@@ -574,6 +574,26 @@ terraform fmt
 terraform plan
 terraform apply
 
+
+----------Creating ami image and creating instance with it ----------------------------------------------
+resource "aws_ami_from_instance" "my-images" {
+  name               = "terra-image"
+  source_instance_id = "i-0a3c0e9dad66ae98f"
+
+  tags = {
+    Name = "Hello-world"
+  }
+}
+resource "aws_instance" "custom-server" {
+  ami               = aws_ami_from_instance.my-images.id
+  availability_zone = "us-east-1a"
+  instance_type     = "t2.micro"
+  key_name          = "lti-mahape-key"
+  tags = {
+    Name = "custom-server"
+  }
+}
+
                         
                                 
 
